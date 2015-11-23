@@ -47,7 +47,7 @@ BEAM_FILES = $(patsubst src/%.erl, ebin/%.beam, $(ERL_FILES))
 
 ######################################################################
 
-all: priv/bin/serial $(BEAM_FILES)
+all: priv/bin/serial $(BEAM_FILES) app
 
 install: all
 	@[ -n "$(DESTDIR)" ] || (echo "Set DESTDIR before running the install target."; false)
@@ -57,6 +57,10 @@ install: all
 	install -m 644 ebin/* $(FULL_INSTALL_DIR)/ebin
 	install -m 755 priv/bin/* $(FULL_INSTALL_DIR)/priv/bin
 	install -m 644 src/* $(FULL_INSTALL_DIR)/src
+
+app:
+	cp src/erlang-serial.app.src ebin/erlang-serial.app
+	sed -i -e "s,%VSN%,${VSN},g" ebin/erlang-serial.app
 
 ebin/%.beam: src/%.erl ebin
 	erlc -o ebin $<
