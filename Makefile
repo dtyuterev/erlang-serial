@@ -59,8 +59,8 @@ install: all
 	install -m 644 src/* $(FULL_INSTALL_DIR)/src
 
 app:
-	cp src/erlang-serial.app.src ebin/erlang-serial.app
-	sed -i -e "s,%VSN%,${VSN},g" ebin/erlang-serial.app
+	cp src/serial.app.src ebin/serial.app
+	sed -i -e "s,%VSN%,${VSN},g" ebin/serial.app
 
 ebin/%.beam: src/%.erl ebin
 	erlc -o ebin $<
